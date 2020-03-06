@@ -48,10 +48,10 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
 
     # Read in info
     if sys.platform == "win32":
-        ROOTPATH = "C:/Users/tcapu/Google Drive/modules/theo_timeline"
+        ROOTPATH = "C:/Users/tcapu/Google Drive/modules/timeline"
     elif sys.platform == "linux2":
-        ROOTPATH = "/media/sf_Google_Drive/modules/theo_timeline"
-    exec(open('{}/creds.py'.format(ROOTPATH)).read())
+        ROOTPATH = "/media/sf_Google_Drive/modules/timeline"
+    exec(open('{}/info.py'.format(ROOTPATH)).read())
 
     # Make the start and end date into datetime format
     start_date = datetime.strptime(start, '%Y-%m-%d')
@@ -74,9 +74,9 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
 
     if not outpath:
         if sys.platform == "win32":
-            outpath = "C:/Users/tcapu/Google Drive/modules/theo_timeline"
+            outpath = "C:/Users/tcapu/Google Drive/modules/timeline"
         elif sys.platform == "linux2":
-            outpath = "/media/sf_Google_Drive/modules/theo_timeline"
+            outpath = "/media/sf_Google_Drive/modules/timeline"
 
     # Set us_states = True to get all the states
     if us_states:
