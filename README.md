@@ -9,9 +9,9 @@ This code has no license. Theodore Caputi (Copyright 2020) retains all rights ov
 The main function of the package is `theo_timeline`. An example script would be:
 
 ```
-import gtrends
+from gtrends import timeline
 
-gtrends.functions.theo_timeline(
+timeline.theo_timeline(
     terms = ['corona', 'corona + symptoms'],
     names = ['corona', 'symptoms'],
     start = '2018-01-01',
@@ -27,6 +27,7 @@ gtrends.functions.theo_timeline(
     outpath = "C:/Users/tcapu/Google Drive/modules/gtrends",
     creds = "C:/Users/tcapu/Google Drive/modules/gtrends/info.py"
 )
+
 ```
 
 ## Getting Started
