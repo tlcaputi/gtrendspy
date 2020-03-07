@@ -36,6 +36,6 @@ gtrends.functions.theo_timeline(
 
 (2) Install the package using the following command:
 
-`pip install --upgrade git+ssh://git@github.com/tlcaputi/timeline#egg=theo_timeline`
+`pip install --upgrade git+ssh://git@github.com/tlcaputi/gtrends#egg=gtrends`
 
 (3) Begin using the package!
