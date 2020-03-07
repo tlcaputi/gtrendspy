@@ -59,7 +59,7 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
             exec(line, globals())
             print(line)
         else:
-        API_KEY = key
+            API_KEY = key
 
     timestep = relativedelta(years=timestep_years)
 
