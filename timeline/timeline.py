@@ -56,7 +56,7 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
     if not key:
         f = open(creds, 'r')
         for line in f:
-            exec(line, globals())
+            exec(line)
             print(line)
         print(API_KEY)
     else:
