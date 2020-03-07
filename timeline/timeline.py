@@ -48,10 +48,12 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
     and date as the index. When creating these term-level CSV files, it accounts for differences in overlapping data pulled from the API.
     '''
 
+    f = open(creds, 'r')
+    for line in f:
+        exec(line)
+        print(line)
 
-    print(open(creds).read())
-
-    exec(open(creds).read())
+    # exec(open(creds).read())
 
     timestep = relativedelta(years=timestep_years)
 
