@@ -38,4 +38,6 @@ gtrends.functions.theo_timeline(
 
 `pip install --upgrade git+ssh://git@github.com/tlcaputi/gtrends#egg=gtrends`
 
-(3) Begin using the package!
+(3) Create an info file with your own parameters (SERVER, API_VERSION, DISCOVERY_URL_SUFFIX, DISCOVERY_URL, API_KEY)
+
+(4) Begin using the package!
