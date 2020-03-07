@@ -9,6 +9,6 @@ setup(
     author='Theodore L Caputi',
     author_email='tcaputi@mit.edu',
     license='No License',
-    packages=['theo_timeline'],
+    # packages=['theo_timeline'],
     zip_safe=False
 )
