@@ -17,24 +17,8 @@ __email__ = "tcaputi@mit.edu"
 __status__ = "Development"
 
 
-from googleapiclient.discovery import build
-from datetime import date, timedelta, datetime
-from dateutil.relativedelta import relativedelta
-import tempfile
-import shutil
-import pandas as pd
-import math
-import functools
-import numpy as np
-import re
-import sys
 
 
-
-
-def intersection(lst1, lst2):
-    lst3 = [value for value in lst1 if value in lst2]
-    return lst3
 
 
 
@@ -45,6 +29,26 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
     periods and multiple geographies. Further, this function merges the data into term-level CSV files with geography as the columns
     and date as the index. When creating these term-level CSV files, it accounts for differences in overlapping data pulled from the API.
     '''
+
+
+    from googleapiclient.discovery import build
+    from datetime import date, timedelta, datetime
+    from dateutil.relativedelta import relativedelta
+    import tempfile
+    import shutil
+    import pandas as pd
+    import math
+    import functools
+    import numpy as np
+    import re
+    import sys
+
+
+    def intersection(lst1, lst2):
+        lst3 = [value for value in lst1 if value in lst2]
+        return lst3
+
+
 
     # Read in info
     if sys.platform == "win32":
