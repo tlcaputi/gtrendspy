@@ -54,9 +54,11 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
     #     print(line)
 
     if not key:
-        exec(open(creds).read(), globals())
-        print(open(creds).read())
-    else:
+        f = open(creds, 'r')
+        for line in f:
+            exec(line, globals())
+            print(line)
+        else:
         API_KEY = key
 
     timestep = relativedelta(years=timestep_years)
