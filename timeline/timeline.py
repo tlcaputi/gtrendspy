@@ -17,11 +17,6 @@ __email__ = "tcaputi@mit.edu"
 __status__ = "Development"
 
 
-
-
-
-
-
 from googleapiclient.discovery import build
 from datetime import date, timedelta, datetime
 from dateutil.relativedelta import relativedelta
@@ -40,7 +35,7 @@ def intersection(lst1, lst2):
     return lst3
 
 
-def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, geo_dma_list, geo_region_list, timestep_years, outpath, creds, key, worldwide = False, batch_size = 30, us_states = False):
+def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, geo_dma_list, geo_region_list, timestep_years, outpath, creds, worldwide = False, batch_size = 30, us_states = False):
     '''
     The Google Trends API is set up to provide data for a limited number of terms over a single geography and a single date period.
     This is a simple function that queries the Google Trends API for data for an unlimited number of search terms over multiple date
@@ -48,44 +43,21 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
     and date as the index. When creating these term-level CSV files, it accounts for differences in overlapping data pulled from the API.
     '''
 
-    # f = open(creds, 'r')
-    # for line in f:
-    #     exec(line)
-    #     print(line)
 
-    if not key:
-        f = open(creds, 'r')
-        for line in f:
-            exec(line)
-            print(line)
-        print(API_KEY)
-    else:
-        API_KEY = key
+    # Set parameters
+    global API_KEY
+    global SERVER
+    global API_VERSION
+    global DISCOVERY_URL_SUFFIX
+    global DISCOVERY_URL
 
+    f = open(creds, 'r')
+    for line in f:
+        exec(line, globals())
+
+
+    # Change timestep into relativedelta format
     timestep = relativedelta(years=timestep_years)
-
-
-    SERVER = 'https://www.googleapis.com'
-    API_VERSION = 'v1beta'
-    DISCOVERY_URL_SUFFIX = '/discovery/v1/apis/trends/' + API_VERSION + '/rest'
-    DISCOVERY_URL = SERVER + DISCOVERY_URL_SUFFIX
-    # API_KEY = 'AIzaSyCmAh_lLmd9oM5HDFhD65yGvPqq5gognSc'
-
-
-    # # Read in info
-    # if sys.platform == "win32":
-    #     ROOTPATH = "C:/Users/tcapu/Google Drive/modules/timeline"
-    # elif sys.platform == "linux2":
-    #     ROOTPATH = "/media/sf_Google_Drive/modules/timeline"
-    # exec(open('{}/info.py'.format(ROOTPATH)).read())
-    #
-    # if not outpath:
-    #     if sys.platform == "win32":
-    #         outpath = "C:/Users/tcapu/Google Drive/modules/timeline"
-    #     elif sys.platform == "linux2":
-    #         outpath = "/media/sf_Google_Drive/modules/timeline"
-
-
 
 
     # Make the start and end date into datetime format
@@ -322,8 +294,7 @@ def main():
         batch_size = 2,
         us_states = False,
         outpath = "C:/Users/tcapu/Google Drive/modules/timeline",
-        creds = "C:/Users/tcapu/Google Drive/modules/timeline/info.py",
-        key = 'AIzaSyCmAh_lLmd9oM5HDFhD65yGvPqq5gognSc'
+        creds = "C:/Users/tcapu/Google Drive/modules/timeline/info.py"
     )
 
 if __name__ == "main":
