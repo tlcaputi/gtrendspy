@@ -40,7 +40,7 @@ def intersection(lst1, lst2):
     return lst3
 
 
-def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, geo_dma_list, geo_region_list, timestep_years, outpath, creds, worldwide = False, batch_size = 30, us_states = False):
+def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, geo_dma_list, geo_region_list, timestep_years, outpath, creds, API_KEY, worldwide = False, batch_size = 30, us_states = False):
     '''
     The Google Trends API is set up to provide data for a limited number of terms over a single geography and a single date period.
     This is a simple function that queries the Google Trends API for data for an unlimited number of search terms over multiple date
@@ -49,9 +49,18 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
     '''
 
 
+    print(open(creds).read())
+
     exec(open(creds).read())
 
     timestep = relativedelta(years=timestep_years)
+
+
+    SERVER = 'https://www.googleapis.com'
+    API_VERSION = 'v1beta'
+    DISCOVERY_URL_SUFFIX = '/discovery/v1/apis/trends/' + API_VERSION + '/rest'
+    DISCOVERY_URL = SERVER + DISCOVERY_URL_SUFFIX
+    # API_KEY = 'AIzaSyCmAh_lLmd9oM5HDFhD65yGvPqq5gognSc'
 
 
     # # Read in info
@@ -304,7 +313,8 @@ def main():
         batch_size = 2,
         us_states = False,
         outpath = "C:/Users/tcapu/Google Drive/modules/timeline",
-        creds = "C:/Users/tcapu/Google Drive/modules/timeline/info.py"
+        creds = "C:/Users/tcapu/Google Drive/modules/timeline/info.py",
+        API_KEY = 'AIzaSyCmAh_lLmd9oM5HDFhD65yGvPqq5gognSc'
     )
 
 if __name__ == "main":
