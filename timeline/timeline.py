@@ -22,7 +22,25 @@ __status__ = "Development"
 
 
 
-def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, geo_dma_list, geo_region_list, timestep_years, outpath = None, worldwide = False, batch_size = 30, us_states = False):
+from googleapiclient.discovery import build
+from datetime import date, timedelta, datetime
+from dateutil.relativedelta import relativedelta
+import tempfile
+import shutil
+import pandas as pd
+import math
+import functools
+import numpy as np
+import re
+import sys
+
+
+def intersection(lst1, lst2):
+    lst3 = [value for value in lst1 if value in lst2]
+    return lst3
+
+
+def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, geo_dma_list, geo_region_list, timestep_years, outpath, creds, worldwide = False, batch_size = 30, us_states = False):
     '''
     The Google Trends API is set up to provide data for a limited number of terms over a single geography and a single date period.
     This is a simple function that queries the Google Trends API for data for an unlimited number of search terms over multiple date
@@ -31,33 +49,26 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
     '''
 
 
-    from googleapiclient.discovery import build
-    from datetime import date, timedelta, datetime
-    from dateutil.relativedelta import relativedelta
-    import tempfile
-    import shutil
-    import pandas as pd
-    import math
-    import functools
-    import numpy as np
-    import re
-    import sys
-
-
-    def intersection(lst1, lst2):
-        lst3 = [value for value in lst1 if value in lst2]
-        return lst3
-
+    exec(open(creds).read())
 
     timestep = relativedelta(years=timestep_years)
 
 
-    # Read in info
-    if sys.platform == "win32":
-        ROOTPATH = "C:/Users/tcapu/Google Drive/modules/timeline"
-    elif sys.platform == "linux2":
-        ROOTPATH = "/media/sf_Google_Drive/modules/timeline"
-    exec(open('{}/info.py'.format(ROOTPATH)).read())
+    # # Read in info
+    # if sys.platform == "win32":
+    #     ROOTPATH = "C:/Users/tcapu/Google Drive/modules/timeline"
+    # elif sys.platform == "linux2":
+    #     ROOTPATH = "/media/sf_Google_Drive/modules/timeline"
+    # exec(open('{}/info.py'.format(ROOTPATH)).read())
+    #
+    # if not outpath:
+    #     if sys.platform == "win32":
+    #         outpath = "C:/Users/tcapu/Google Drive/modules/timeline"
+    #     elif sys.platform == "linux2":
+    #         outpath = "/media/sf_Google_Drive/modules/timeline"
+
+
+
 
     # Make the start and end date into datetime format
     start_date = datetime.strptime(start, '%Y-%m-%d')
@@ -77,12 +88,6 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
     service = build('trends', 'v1beta',
                   developerKey=API_KEY,
                   discoveryServiceUrl=DISCOVERY_URL)
-
-    if not outpath:
-        if sys.platform == "win32":
-            outpath = "C:/Users/tcapu/Google Drive/modules/timeline"
-        elif sys.platform == "linux2":
-            outpath = "/media/sf_Google_Drive/modules/timeline"
 
     # Set us_states = True to get all the states
     if us_states:
@@ -297,7 +302,9 @@ def main():
         worldwide = True,
         timestep_years = 1,
         batch_size = 2,
-        us_states = False
+        us_states = False,
+        outpath = "C:/Users/tcapu/Google Drive/modules/timeline",
+        creds = "C:/Users/tcapu/Google Drive/modules/timeline/info.py"
     )
 
 if __name__ == "main":
