@@ -22,7 +22,7 @@ __status__ = "Development"
 
 
 
-def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, geo_dma_list, geo_region_list, timestep, outpath = None, worldwide = False, batch_size = 30, us_states = False):
+def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, geo_dma_list, geo_region_list, timestep_years, outpath = None, worldwide = False, batch_size = 30, us_states = False):
     '''
     The Google Trends API is set up to provide data for a limited number of terms over a single geography and a single date period.
     This is a simple function that queries the Google Trends API for data for an unlimited number of search terms over multiple date
@@ -48,6 +48,8 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
         lst3 = [value for value in lst1 if value in lst2]
         return lst3
 
+
+    timestep = relativedelta(years=timestep_years)
 
 
     # Read in info
@@ -293,7 +295,7 @@ def main():
         geo_dma_list = [None],
         geo_region_list = [None],
         worldwide = True,
-        timestep = relativedelta(years = 1),
+        timestep_years = 1,
         batch_size = 2,
         us_states = False
     )
