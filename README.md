@@ -1,12 +1,11 @@
-# theo_timeline: Pull and merge data from the Google Trends for Health API
+# Pull and merge data from the Google Trends for Health API
 
 This code has no license. Theodore Caputi (Copyright 2020) retains all rights over all code stored in this repo.
 
 
 ## Functionality
----
 
-The main function of the package is `theo_timeline`. An example script would be:
+The main function of the package is `theo_timeline`, a function that pulls and merges data from the Google Trends API. An example script would be:
 
 ```
 from gtrends import timeline
@@ -31,7 +30,6 @@ timeline.theo_timeline(
 ```
 
 ## Getting Started
----
 
 (1) Request an SSH Deploy Key for this project from tcaputi@gmail.com.
 
@@ -39,6 +37,6 @@ timeline.theo_timeline(
 
 `pip install --upgrade git+ssh://git@github.com/tlcaputi/gtrends#egg=gtrends`
 
-(3) Create an info file with your own parameters (SERVER, API_VERSION, DISCOVERY_URL_SUFFIX, DISCOVERY_URL, API_KEY)
+(3) Create a `creds` file with your own parameters (SERVER, API_VERSION, DISCOVERY_URL_SUFFIX, DISCOVERY_URL, API_KEY)
 
-(4) Begin using the package!
+(4) Begin using the package! The merged output will be in the directory you named as `outpath'
