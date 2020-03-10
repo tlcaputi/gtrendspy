@@ -1,3 +1,23 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""Pull and merge data from the Google Trends API
+
+Copyright (c) 2020 Theodore L Caputi
+
+"""
+
+__author__ = "Theodore L Caputi"
+__copyright__ = "Copyright 2020, Theodore L Caputi"
+__credits__ = ""
+__license__ = "No License"
+__version__ = "1.0.0"
+__maintainer__ = "Theodore L Caputi"
+__email__ = "tcaputi@mit.edu"
+__status__ = "Development"
+
+
+
 from setuptools import setup, find_packages
 
 setup(
