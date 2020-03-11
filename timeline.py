@@ -30,12 +30,13 @@ import re
 import sys
 
 
+
 def intersection(lst1, lst2):
     lst3 = [value for value in lst1 if value in lst2]
     return lst3
 
 
-def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, geo_dma_list, geo_region_list, timestep_years, outpath, creds, worldwide = False, batch_size = 30, us_states = False):
+def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outpath, creds, geo_country_list = [None], geo_dma_list  = [None], geo_region_list  = [None], worldwide = False, batch_size = 30, us_states = False):
     '''
     The Google Trends API is set up to provide data for a limited number of terms over a single geography and a single date period.
     This is a simple function that queries the Google Trends API for data for an unlimited number of search terms over multiple date
@@ -66,7 +67,7 @@ def theo_timeline(terms, names, start, end, timeframe_list, geo_country_list, ge
 
 
     # Run some assert statements to make sure things will work out
-    assert sys.platform == "win32" or sys.platform == "linux2", "Wrong Operating System"
+    assert "linux" in sys.platform or "win" in sys.platform, "Wrong Operating System"
     assert sys.version[0] == '3', "Wrong Python Version"
     assert batch_size < 30, "Batch Size must be lower than 30"
     assert len(terms) == len(names), "Number of terms not the same as the number of names"

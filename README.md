@@ -32,32 +32,18 @@ This script would pull monthly data for the search terms `cat` and `cat + food` 
 
 ## Getting Started
 
-### Option A: Install from tarball
+Note: This package assumes use of Python 3.X and pip3. It works on Linux and Windows OS.
 
-(1) Request tarball from tcaputi@gmail.com
+(1) Request tarball (gtrends.tar.gz) from tcaputi@gmail.com
 
 (2) Run the command:
 
-`pip install --upgrade /path/to/tarball`
+`pip install --upgrade /path/to/gtrends.tar.gz`
 
 (3) Install dependencies using the command:
 
 `pip install -r /path/to/gtrends/requirements.txt`
 
-(4) Begin using the package! The merged output will be in the directory you named as `outpath`.
-
-### Option B: Install from Github
-
-(1) Add your SSH key to the repo
-
-(2) Install the package using the following command:
-
-`pip install --upgrade git+ssh://git@github.com/tlcaputi/gtrends#egg=gtrends`
-
-(3) Create a `creds` file setting your own parameters (SERVER, API_VERSION, DISCOVERY_URL_SUFFIX, DISCOVERY_URL, API_KEY)
-
-(4) Install dependencies using the command:
-
-`pip install -r /path/to/gtrends/requirements.txt`
+(4) Create a `creds` file setting your own parameters (SERVER, API_VERSION, DISCOVERY_URL_SUFFIX, DISCOVERY_URL, API_KEY)
 
 (5) Begin using the package! The merged output will be in the directory you named as `outpath`.
