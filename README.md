@@ -44,6 +44,6 @@ Note: This package assumes use of Python 3.X and pip3. It works on Linux and Win
 
 `pip install -r /path/to/gtrends/requirements.txt`
 
-(4) Create a `creds` file setting your own parameters (SERVER, API_VERSION, DISCOVERY_URL_SUFFIX, DISCOVERY_URL, API_KEY)
+(4) Create a `creds` file setting your own parameters (DISCOVERY_URL, API_KEY)
 
 (5) Begin using the package! The merged output will be in the directory you named as `outpath`.
