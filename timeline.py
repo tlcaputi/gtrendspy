@@ -44,6 +44,25 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
     and date as the index. When creating these term-level CSV files, it accounts for differences in overlapping data pulled from the API.
     '''
 
+    # Set us_states = True to get all the states
+    if us_states:
+        if geo_region_list == [None]:
+            geo_region_list = [
+                        'US-DC', 'US-AL', 'US-AK', 'US-AZ', 'US-AR', 'US-CA', 'US-CO', 'US-CT', 'US-DE', 'US-FL', 'US-GA', 'US-HI', 'US-ID', 'US-IL',
+                        'US-IN', 'US-IA', 'US-KS', 'US-KY', 'US-LA', 'US-ME', 'US-MD', 'US-MA', 'US-MI', 'US-MN', 'US-MS', 'US-MO', 'US-MT', 'US-NE',
+                        'US-NV', 'US-NH', 'US-NJ', 'US-NM', 'US-NY', 'US-NC', 'US-ND', 'US-OH', 'US-OK', 'US-OR', 'US-PA', 'US-RI', 'US-SC', 'US-SD',
+                        'US-TN', 'US-TX', 'US-UT', 'US-VT', 'US-VA', 'US-WA', 'US-WV', 'US-WI', 'US-WY'
+                        ]
+        else:
+            geo_region_list = geo_region_list + [
+                        'US-DC', 'US-AL', 'US-AK', 'US-AZ', 'US-AR', 'US-CA', 'US-CO', 'US-CT', 'US-DE', 'US-FL', 'US-GA', 'US-HI', 'US-ID', 'US-IL',
+                        'US-IN', 'US-IA', 'US-KS', 'US-KY', 'US-LA', 'US-ME', 'US-MD', 'US-MA', 'US-MI', 'US-MN', 'US-MS', 'US-MO', 'US-MT', 'US-NE',
+                        'US-NV', 'US-NH', 'US-NJ', 'US-NM', 'US-NY', 'US-NC', 'US-ND', 'US-OH', 'US-OK', 'US-OR', 'US-PA', 'US-RI', 'US-SC', 'US-SD',
+                        'US-TN', 'US-TX', 'US-UT', 'US-VT', 'US-VA', 'US-WA', 'US-WV', 'US-WI', 'US-WY'
+                        ]
+        geo_region_list = sorted(list(set([x for x in geo_region_list if x])))
+        # print("geo_return_list is {}".format(geo_region_list))
+
 
     # Set parameters
     global API_KEY
@@ -80,15 +99,7 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
                   developerKey=API_KEY,
                   discoveryServiceUrl=DISCOVERY_URL)
 
-    # Set us_states = True to get all the states
-    if us_states:
-        geo_region_list = geo_region_list + [
-                    'US-DC', 'US-AL', 'US-AK', 'US-AZ', 'US-AR', 'US-CA', 'US-CO', 'US-CT', 'US-DE', 'US-FL', 'US-GA', 'US-HI', 'US-ID', 'US-IL',
-                    'US-IN', 'US-IA', 'US-KS', 'US-KY', 'US-LA', 'US-ME', 'US-MD', 'US-MA', 'US-MI', 'US-MN', 'US-MS', 'US-MO', 'US-MT', 'US-NE',
-                    'US-NV', 'US-NH', 'US-NJ', 'US-NM', 'US-NY', 'US-NC', 'US-ND', 'US-OH', 'US-OK', 'US-OR', 'US-PA', 'US-RI', 'US-SC', 'US-SD',
-                    'US-TN', 'US-TX', 'US-UT', 'US-VT', 'US-VA', 'US-WA', 'US-WV', 'US-WI', 'US-WY'
-                    ]
-        geo_region_list = list(set(geo_region_list))
+
 
 
     # We want all of the different geographies in the same term-level CSV file. Therefore, we need to combine all the geographies
@@ -193,6 +204,7 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
 
 
 
+
                     # We reformat the data from the API into pandas
                     data = response['lines']
                     for ind in range(0, len(data)):
@@ -223,9 +235,9 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
 
             # The first step is to bind the rows of datasets that have the same term X geography but
             # different date ranges
-            terms_in_batch = list(set(name_list))
-            locations_in_batch = list(set(location_list))
-            periods_in_batch = list(set(period_list))
+            terms_in_batch = sorted(list(set(name_list)))
+            locations_in_batch = sorted(list(set(location_list)))
+            periods_in_batch = sorted(list(set(period_list)))
             binded_df_list = []
             binded_term_list = []
 
@@ -245,12 +257,13 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
                         binded_data = binded_data.append(data_to_bind[data_ind-1])
 
                     # and we save it to a list of binded dataframes
+
                     binded_df_list = binded_df_list + [binded_data]
                     binded_term_list = binded_term_list + [term_in_batch]
 
 
             # Finally, we need to merge the columns of binded datasets with data for the same term but different locations
-            terms_in_batch = list(set(binded_term_list))
+            terms_in_batch = sorted(list(set(binded_term_list)))
             for term_in_batch in terms_in_batch:
 
 
@@ -281,21 +294,27 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
 
 
 def main():
+
+    terms = [
+        'hiv test + hiv tests + hiv testing + oraquick',
+        'HIV prep + pre-exposure prophylaxis + preexposure prophylaxis + Truvada + Descovy'
+    ]
+
+    names = ['hivtest','hivprep']
+
     theo_timeline(
-        terms = ['corona', 'corona + symptoms'],
-        names = ['corona', 'symptoms'],
-        start = '2018-01-01',
-        end = '2020-02-01',
-        timeframe_list = ['month'],
-        geo_country_list = ['US', 'CA'],
-        geo_dma_list = [None],
-        geo_region_list = [None],
-        worldwide = True,
+        terms = terms,
+        names = names,
+        start = '2019-01-01',
+        end = '2020-01-01',
+        timeframe_list = ['year'],
+        geo_country_list = ['US'],
+        worldwide = False,
         timestep_years = 1,
         batch_size = 2,
-        us_states = False,
-        outpath = "C:/Users/tcapu/Google Drive/modules/timeline",
-        creds = "C:/Users/tcapu/Google Drive/modules/timeline/info.py"
+        us_states = True,
+        outpath = "C:/Users/tcapu/Google Drive/PublicHealthStudies/hivtrends",
+        creds = "C:/Users/tcapu/Google Drive/modules/gtrends/info.py"
     )
 
 if __name__ == "main":
