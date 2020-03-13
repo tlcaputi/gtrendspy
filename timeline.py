@@ -46,22 +46,13 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
 
     # Set us_states = True to get all the states
     if us_states:
-        if geo_region_list == [None]:
-            geo_region_list = [
-                        'US-DC', 'US-AL', 'US-AK', 'US-AZ', 'US-AR', 'US-CA', 'US-CO', 'US-CT', 'US-DE', 'US-FL', 'US-GA', 'US-HI', 'US-ID', 'US-IL',
-                        'US-IN', 'US-IA', 'US-KS', 'US-KY', 'US-LA', 'US-ME', 'US-MD', 'US-MA', 'US-MI', 'US-MN', 'US-MS', 'US-MO', 'US-MT', 'US-NE',
-                        'US-NV', 'US-NH', 'US-NJ', 'US-NM', 'US-NY', 'US-NC', 'US-ND', 'US-OH', 'US-OK', 'US-OR', 'US-PA', 'US-RI', 'US-SC', 'US-SD',
-                        'US-TN', 'US-TX', 'US-UT', 'US-VT', 'US-VA', 'US-WA', 'US-WV', 'US-WI', 'US-WY'
-                        ]
-        else:
-            geo_region_list = geo_region_list + [
+        geo_region_list = geo_region_list + [
                         'US-DC', 'US-AL', 'US-AK', 'US-AZ', 'US-AR', 'US-CA', 'US-CO', 'US-CT', 'US-DE', 'US-FL', 'US-GA', 'US-HI', 'US-ID', 'US-IL',
                         'US-IN', 'US-IA', 'US-KS', 'US-KY', 'US-LA', 'US-ME', 'US-MD', 'US-MA', 'US-MI', 'US-MN', 'US-MS', 'US-MO', 'US-MT', 'US-NE',
                         'US-NV', 'US-NH', 'US-NJ', 'US-NM', 'US-NY', 'US-NC', 'US-ND', 'US-OH', 'US-OK', 'US-OR', 'US-PA', 'US-RI', 'US-SC', 'US-SD',
                         'US-TN', 'US-TX', 'US-UT', 'US-VT', 'US-VA', 'US-WA', 'US-WV', 'US-WI', 'US-WY'
                         ]
         geo_region_list = sorted(list(set([x for x in geo_region_list if x])))
-        # print("geo_return_list is {}".format(geo_region_list))
 
 
     # Set parameters
@@ -295,16 +286,9 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
 
 def main():
 
-    terms = [
-        'hiv test + hiv tests + hiv testing + oraquick',
-        'HIV prep + pre-exposure prophylaxis + preexposure prophylaxis + Truvada + Descovy'
-    ]
-
-    names = ['hivtest','hivprep']
-
     theo_timeline(
-        terms = terms,
-        names = names,
+        terms = ['cats', 'cats + food'],
+        names = ['cats', 'food'],
         start = '2019-01-01',
         end = '2020-01-01',
         timeframe_list = ['year'],
