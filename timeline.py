@@ -157,11 +157,8 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
                 print('[{}] TIMEPERIOD: FROM {} TO {}'.format(datetime.now().strftime("%H:%M:%S"), date1.strftime('%Y-%m-%d'), date2.strftime('%Y-%m-%d')))
 
 
-                # print("locations is {}".format(locations))
-
                 # For this term X date range combination, we pull all possible geographies
                 for loc_ind in range(0, len(locations)):
-                    # print("loc_ind is {}".format(loc_ind))
                     location = locations[loc_ind]
                     location_type = locations_type[loc_ind]
 
@@ -297,7 +294,7 @@ def main():
         timestep_years = 1,
         batch_size = 2,
         us_states = True,
-        outpath = "C:/Users/tcapu/Google Drive/PublicHealthStudies/hivtrends",
+        outpath = "C:/Users/tcapu/Google Drive/PublicHealthStudies/cats",
         creds = "C:/Users/tcapu/Google Drive/modules/gtrends/info.py"
     )
 
