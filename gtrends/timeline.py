@@ -28,6 +28,7 @@ import functools
 import numpy as np
 import re
 import sys
+import statistics
 
 
 
@@ -238,11 +239,14 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
                     indexes_cond2 = [i for i, v in enumerate(cond2) if v]
                     indexes_for_location_term = intersection(indexes_cond1, indexes_cond2)
                     data_to_bind = [df_list[i] for i in indexes_for_location_term]
+                    data_to_bind_tail = [df_list[i].tail() for i in indexes_for_location_term]
+
+                    # print("data to bind tail: {}".format(data_to_bind_tail))
 
                     # This appends the binded data
                     binded_data = data_to_bind[0]
-                    for data_ind in range(2, len(data_to_bind)):
-                        binded_data = binded_data.append(data_to_bind[data_ind-1])
+                    for data_ind in range(1, len(data_to_bind)):
+                        binded_data = binded_data.append(data_to_bind[data_ind])
 
                     # and we save it to a list of binded dataframes
 
@@ -259,23 +263,46 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
                 indexes_for_term = [i for i, v in enumerate(matches) if v]
                 data_to_merge = [binded_df_list[i] for i in indexes_for_term]
 
-                merged_data = functools.reduce(lambda x, y: pd.merge(x, y, on = 'timestamp'), data_to_merge)
+                data_to_merge_head = [binded_df_list[i].head(5) for i in indexes_for_term]
+                # print("data to merge head is: {}".format(data_to_merge_head))
+                # merged_data = functools.reduce(lambda x, y: pd.merge(x, y, on = 'timestamp'), data_to_merge)
+
+
+                def if0NA(data):
+                    return([None if x == 0 else x for x in data])
+
+                def mean0(data):
+                    if all([True if not x else False for x in data]):
+                        return -9999
+                    else:
+                        out = statistics.mean([x for x in data if x])
+                        return out
+
+                def rev9999(data):
+                    return [x if x != -9999 else None for x in data]
+
+
+                merged_data = data_to_merge[0]
+                merged_data.iloc[:,1] = [x if x != 0 else None for x in merged_data.iloc[:,1]]
+                merged_data = merged_data.groupby('timestamp').agg(mean0)
+                for data_ind in range(1, len(data_to_merge)):
+                    # print("[{}] merging {} of {}".format(datetime.now(), data_ind, len(data_to_merge)))
+                    data_about_to_be_merged = data_to_merge[data_ind]
+                    data_about_to_be_merged.iloc[:,1] = [x if x != 0 else None for x in data_about_to_be_merged.iloc[:,1]]
+                    data_about_to_be_merged = data_about_to_be_merged.groupby('timestamp').agg(mean0)
+                    merged_data = merged_data.merge(data_about_to_be_merged, on='timestamp')
 
 
                 # Unfortunately, the API provides a lot of overlap. For all dates with multiple observations,
                 # we take the mean (removing NA values and 0 values)
-
-                def if0NA(data):
-                    return([None if x == 0 else x for x in data])
-                merged_data = merged_data.apply(if0NA)
-
-                simplified_merged_data = merged_data.groupby('timestamp').agg('mean')
-                simplified_merged_data.columns = ["Worldwide" if not x else x for x in simplified_merged_data.columns]
-                simplified_merged_data.columns = [re.sub("[-]", "_", x) for x in simplified_merged_data.columns.tolist()]
+                merged_data = merged_data.apply(rev9999)
+                merged_data.sort_values(by='timestamp')
+                merged_data.columns = ["Worldwide" if not x else x for x in merged_data.columns]
+                merged_data.columns = [re.sub("[-]", "_", x) for x in merged_data.columns.tolist()]
 
 
                 # Finally we save the merged, binded data to a CSV for further analysis
-                simplified_merged_data.to_csv("{}/{}_{}.csv".format(outpath, term_in_batch, timeframe))
+                merged_data.to_csv("{}/{}_{}.csv".format(outpath, term_in_batch, timeframe))
                 print("[{}] {}_{}.csv created!".format(datetime.now().strftime("%H:%M:%S"), term_in_batch, timeframe))
 
 

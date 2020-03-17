@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: gtrends
+Version: 1.0.0
+Summary: Private package for pulling and merging Google Trends data
+Home-page: https://github.com/tlcaputi/gtrends.git
+Author: Theodore L Caputi
+Author-email: tcaputi@mit.edu
+License: No License
+Description: UNKNOWN
+Platform: UNKNOWN
