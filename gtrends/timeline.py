@@ -37,7 +37,11 @@ def intersection(lst1, lst2):
     return lst3
 
 
-def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outpath, creds, geo_country_list = [None], geo_dma_list  = [None], geo_region_list  = [None], worldwide = False, batch_size = 30, us_states = False):
+def theo_timeline(terms, names, start, end, timeframe_list, timestep_years,
+                  outpath, creds, geo_country_list = [None],
+                  geo_dma_list  = [None], geo_region_list  = [None],
+                  worldwide = False, batch_size = 30, us_states = False,
+                  rm_US_ = True):
     '''
     The Google Trends API is set up to provide data for a limited number of terms over a single geography and a single date period.
     This is a simple function that queries the Google Trends API for data for an unlimited number of search terms over multiple date
@@ -132,6 +136,7 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
 
             batch_end = min(batch_start + batch_size, len(terms))
             term_batch = terms[batch_start:batch_end]
+            name_batch = names[batch_start:batch_end]
             batch_start = batch_start + batch_size
 
             print("[{}] BATCH: {}".format(datetime.now().strftime("%H:%M:%S"), term_batch))
@@ -198,7 +203,7 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
                     data = response['lines']
                     for ind in range(0, len(data)):
 
-                        name = names[ind]
+                        name = name_batch[ind]
 
                         df = pd.DataFrame(data[ind]['points'])
                         df.columns = ['timestamp', location]
@@ -225,7 +230,7 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
             # The first step is to bind the rows of datasets that have the same term X geography but
             # different date ranges
             terms_in_batch = sorted(list(set(name_list)))
-            locations_in_batch = sorted(list(set(location_list)))
+            locations_in_batch = list(set(location_list))
             periods_in_batch = sorted(list(set(period_list)))
             binded_df_list = []
             binded_term_list = []
@@ -239,9 +244,6 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
                     indexes_cond2 = [i for i, v in enumerate(cond2) if v]
                     indexes_for_location_term = intersection(indexes_cond1, indexes_cond2)
                     data_to_bind = [df_list[i] for i in indexes_for_location_term]
-                    data_to_bind_tail = [df_list[i].tail() for i in indexes_for_location_term]
-
-                    # print("data to bind tail: {}".format(data_to_bind_tail))
 
                     # This appends the binded data
                     binded_data = data_to_bind[0]
@@ -249,7 +251,6 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
                         binded_data = binded_data.append(data_to_bind[data_ind])
 
                     # and we save it to a list of binded dataframes
-
                     binded_df_list = binded_df_list + [binded_data]
                     binded_term_list = binded_term_list + [term_in_batch]
 
@@ -258,14 +259,9 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
             terms_in_batch = sorted(list(set(binded_term_list)))
             for term_in_batch in terms_in_batch:
 
-
                 matches = [True if x == term_in_batch else False for x in binded_term_list]
                 indexes_for_term = [i for i, v in enumerate(matches) if v]
                 data_to_merge = [binded_df_list[i] for i in indexes_for_term]
-
-                data_to_merge_head = [binded_df_list[i].head(5) for i in indexes_for_term]
-                # print("data to merge head is: {}".format(data_to_merge_head))
-                # merged_data = functools.reduce(lambda x, y: pd.merge(x, y, on = 'timestamp'), data_to_merge)
 
 
                 def if0NA(data):
@@ -286,10 +282,11 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
                 merged_data.iloc[:,1] = [x if x != 0 else None for x in merged_data.iloc[:,1]]
                 merged_data = merged_data.groupby('timestamp').agg(mean0)
                 for data_ind in range(1, len(data_to_merge)):
-                    # print("[{}] merging {} of {}".format(datetime.now(), data_ind, len(data_to_merge)))
                     data_about_to_be_merged = data_to_merge[data_ind]
+                    # Fix duplicate rows
                     data_about_to_be_merged.iloc[:,1] = [x if x != 0 else None for x in data_about_to_be_merged.iloc[:,1]]
                     data_about_to_be_merged = data_about_to_be_merged.groupby('timestamp').agg(mean0)
+                    # Merge the data
                     merged_data = merged_data.merge(data_about_to_be_merged, on='timestamp')
 
 
@@ -300,11 +297,16 @@ def theo_timeline(terms, names, start, end, timeframe_list, timestep_years, outp
                 merged_data.columns = ["Worldwide" if not x else x for x in merged_data.columns]
                 merged_data.columns = [re.sub("[-]", "_", x) for x in merged_data.columns.tolist()]
 
+                # Option to remove US_ from state label names
+                if rm_US_ is True:
+                    colnames = [re.sub("US_", "", x) for x in merged_data.columns.tolist()]
+                    # It will only change the column names if they are still unique after removing the US_
+                    if len(set(colnames)) == len(colnames):
+                        merged_data.columns = colnames
 
                 # Finally we save the merged, binded data to a CSV for further analysis
                 merged_data.to_csv("{}/{}_{}.csv".format(outpath, term_in_batch, timeframe))
                 print("[{}] {}_{}.csv created!".format(datetime.now().strftime("%H:%M:%S"), term_in_batch, timeframe))
-
 
 
 
