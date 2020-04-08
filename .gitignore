@@ -4,3 +4,5 @@ info_theo.py
 creds.py
 itsa.py
 *.csv
+*bat/
+*old/
