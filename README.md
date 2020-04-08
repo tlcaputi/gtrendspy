@@ -42,13 +42,13 @@ Note: This package assumes use of Python 3.X and pip3. It works on Linux and Win
 
 (1) pip install from Github
 
-```
-$ pip install https://github.com/tlcaputi/gtrends.git#egg=gtrends
+```console
+pip install https://github.com/tlcaputi/gtrends.git#egg=gtrends
 ```
 
 (2) pip install requirements.txt
 
-```
+```console
 pip install -r requirements.txt
 ```
 
@@ -64,11 +64,15 @@ pip install -r requirements.txt
 
 (2) Run the command:
 
-`pip install --upgrade /path/to/gtrends.tar.gz`
+```console
+pip install --upgrade /path/to/gtrends.tar.gz
+```
 
 (3) Install dependencies using the command:
 
-`pip install -r /path/to/gtrends/requirements.txt`
+```console
+pip install -r /path/to/gtrends/requirements.txt
+```
 
 (4) Create a `creds` file setting your own parameters (DISCOVERY_URL, API_KEY)
 
