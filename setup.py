@@ -16,15 +16,19 @@ __maintainer__ = "Theodore L Caputi"
 __email__ = "tcaputi@mit.edu"
 __status__ = "Development"
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 
 from setuptools import setup, find_packages
 
 setup(
-    name='gtrends',
+    name='gtrendspy',
     version='1.0.0',
     description='Private package for pulling and merging Google Trends data',
-    url='https://github.com/tlcaputi/gtrends.git',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url='https://github.com/tlcaputi/gtrendspy',
     packages=find_packages(exclude=['.git/*','.git','itsa.py', 'test']),
     author='Theodore L Caputi',
     author_email='tcaputi@mit.edu',

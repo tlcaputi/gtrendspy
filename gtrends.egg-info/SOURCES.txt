@@ -1,9 +1,0 @@
-README.md
-setup.py
-gtrends/__init__.py
-gtrends/timeline.py
-gtrends.egg-info/PKG-INFO
-gtrends.egg-info/SOURCES.txt
-gtrends.egg-info/dependency_links.txt
-gtrends.egg-info/not-zip-safe
-gtrends.egg-info/top_level.txt

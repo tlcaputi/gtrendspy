@@ -11,7 +11,7 @@ The main function of the package is `theo_timeline`, a function that pulls and m
 
 ```{python}
 
-from gtrends import timeline
+from gtrendspy import timeline
 
 timeline.theo_timeline(
     terms = ['cat', 'cat + food'],
@@ -32,18 +32,18 @@ timeline.theo_timeline(
 
 This script would pull monthly data for the search terms `cat` and `cat + food` for both the US and Canada between 1 Jan 2018 and 1 Feb 2020, and then reformat that data into two CSV files (`cat_month.csv` and `food_month.csv`, respectively). Each of these CSV files would be formatted such that the first column (timestamp) gives the month and the second and third columns (US and CA) give search queries for the US and Canada, respectively.
 
-This package is intended to be used in conjunction with the [gtrendR package for R](www.github.com/tlcaputi/gtrendR).
+This package is intended to be used in conjunction with the [gtrendR package for R](https://www.github.com/tlcaputi/gtrendR).
 
 ## Getting Started
 
 Note: This package assumes use of Python 3.X and pip3. It works on Linux and Windows OS.
 
-### Install from Github
+### Install from pip
 
 (1) pip install from Github
 
 ```console
-pip install https://github.com/tlcaputi/gtrends.git#egg=gtrends
+pip install gtrendspy
 ```
 
 (2) pip install requirements.txt
