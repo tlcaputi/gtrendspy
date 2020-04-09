@@ -54,6 +54,13 @@ pip install -r requirements.txt
 
 (3) Create a `creds` file setting your own parameters (DISCOVERY_URL, API_KEY)
 
+Your creds file should look something like this. You'll have access to both once Google approves your request for an API Key.
+
+```
+DISCOVERY_URL = "XXX"
+API_KEY = "XXX"
+```
+
 (4) Begin using the package! The merged output will be in the directory you named as `outpath`.
 
 
@@ -74,6 +81,6 @@ pip install --upgrade /path/to/gtrends.tar.gz
 pip install -r /path/to/gtrends/requirements.txt
 ```
 
-(4) Create a `creds` file setting your own parameters (DISCOVERY_URL, API_KEY)
+(4) Create a `creds` file setting your own parameters (see above)
 
 (5) Begin using the package! The merged output will be in the directory you named as `outpath`.
