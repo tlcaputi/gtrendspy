@@ -25,7 +25,7 @@ timeline.theo_timeline(
     batch_size = 2,
     us_states = False,
     outpath = "/path/to/output/directory",
-    creds = "/path/to/info.py"
+    creds = "/path/to/info.txt"
 )
 
 ```
