@@ -112,6 +112,8 @@ def theo_timeline_top(root_terms = None, num_terms_per_root = 25,
 
         all_terms = all_terms + top_terms
 
+    all_terms = all_terms + root_terms
+
     all_terms = list(set(all_terms))
     names = [re.sub(" ", "_", x) for x in all_terms]
 
