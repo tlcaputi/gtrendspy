@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: gtrendspy
-Version: 1.0.0
+Version: 1.0.4
 Summary: Private package for pulling and merging Google Trends data
 Home-page: https://github.com/tlcaputi/gtrendspy
 Author: Theodore L Caputi
@@ -19,7 +19,7 @@ Description: # Pull and merge data from the Google Trends for Health API
         
         ```{python}
         
-        from gtrends import timeline
+        from gtrendspy import timeline
         
         timeline.theo_timeline(
             terms = ['cat', 'cat + food'],
@@ -33,7 +33,7 @@ Description: # Pull and merge data from the Google Trends for Health API
             batch_size = 2,
             us_states = False,
             outpath = "/path/to/output/directory",
-            creds = "/path/to/info.py"
+            creds = "/path/to/info.txt"
         )
         
         ```
@@ -46,12 +46,12 @@ Description: # Pull and merge data from the Google Trends for Health API
         
         Note: This package assumes use of Python 3.X and pip3. It works on Linux and Windows OS.
         
-        ### Install from Github
+        ### Install from pip
         
         (1) pip install from Github
         
         ```console
-        pip install https://github.com/tlcaputi/gtrends.git#egg=gtrends
+        pip install gtrendspy
         ```
         
         (2) pip install requirements.txt
@@ -61,6 +61,13 @@ Description: # Pull and merge data from the Google Trends for Health API
         ```
         
         (3) Create a `creds` file setting your own parameters (DISCOVERY_URL, API_KEY)
+        
+        Your creds file should look something like this. You'll have access to both once Google approves your request for an API Key.
+        
+        ```
+        DISCOVERY_URL = "XXX"
+        API_KEY = "XXX"
+        ```
         
         (4) Begin using the package! The merged output will be in the directory you named as `outpath`.
         
@@ -82,7 +89,7 @@ Description: # Pull and merge data from the Google Trends for Health API
         pip install -r /path/to/gtrends/requirements.txt
         ```
         
-        (4) Create a `creds` file setting your own parameters (DISCOVERY_URL, API_KEY)
+        (4) Create a `creds` file setting your own parameters (see above)
         
         (5) Begin using the package! The merged output will be in the directory you named as `outpath`.
         

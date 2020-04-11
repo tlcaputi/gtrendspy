@@ -37,8 +37,8 @@ def intersection(lst1, lst2):
     return lst3
 
 
-def theo_timeline(terms, names, start, end, timeframe_list, timestep_years,
-                  outpath, creds, geo_country_list = [None],
+def theo_timeline(terms, names, start, end, timeframe_list,
+                  outpath, creds, timestep_years = 1, geo_country_list = [None],
                   geo_dma_list  = [None], geo_region_list  = [None],
                   worldwide = False, batch_size = 30, us_states = False,
                   rm_US_ = True):

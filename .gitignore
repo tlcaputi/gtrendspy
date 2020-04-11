@@ -6,3 +6,5 @@ itsa.py
 *.csv
 *bat/
 *old/
+*test/
+*/test/

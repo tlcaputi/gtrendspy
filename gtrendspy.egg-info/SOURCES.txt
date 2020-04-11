@@ -2,6 +2,7 @@ README.md
 setup.py
 gtrendspy/__init__.py
 gtrendspy/timeline.py
+gtrendspy/topterms.py
 gtrendspy.egg-info/PKG-INFO
 gtrendspy.egg-info/SOURCES.txt
 gtrendspy.egg-info/dependency_links.txt
