@@ -11,7 +11,7 @@ __author__ = "Theodore L Caputi"
 __copyright__ = "Copyright 2020, Theodore L Caputi"
 __credits__ = ""
 __license__ = "No License"
-__version__ = "1.0.4"
+__version__ = "1.0.5"
 __maintainer__ = "Theodore L Caputi"
 __email__ = "tcaputi@mit.edu"
 __status__ = "Development"
@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='gtrendspy',
-    version='1.0.4',
+    version='1.0.5',
     description='Private package for pulling and merging Google Trends data',
     long_description=long_description,
     long_description_content_type="text/markdown",
