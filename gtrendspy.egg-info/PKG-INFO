@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: gtrendspy
-Version: 1.0.5
+Version: 1.0.6
 Summary: Private package for pulling and merging Google Trends data
 Home-page: https://github.com/tlcaputi/gtrendspy
 Author: Theodore L Caputi

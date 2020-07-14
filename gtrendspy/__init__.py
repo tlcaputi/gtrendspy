@@ -1,0 +1,8 @@
+__author__ = "Theodore L Caputi"
+__copyright__ = "Copyright 2020, Theodore L Caputi"
+__credits__ = ""
+__license__ = "No License"
+__version__ = "1.0.6"
+__maintainer__ = "Theodore L Caputi"
+__email__ = "tcaputi@gmail.edu"
+__status__ = "Development"

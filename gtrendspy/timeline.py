@@ -7,16 +7,6 @@ Copyright (c) 2020 Theodore L Caputi
 
 """
 
-__author__ = "Theodore L Caputi"
-__copyright__ = "Copyright 2020, Theodore L Caputi"
-__credits__ = ""
-__license__ = "No License"
-__version__ = "1.0.0"
-__maintainer__ = "Theodore L Caputi"
-__email__ = "tcaputi@mit.edu"
-__status__ = "Development"
-
-
 from googleapiclient.discovery import build
 from datetime import date, timedelta, datetime
 from dateutil.relativedelta import relativedelta
@@ -206,7 +196,7 @@ def theo_timeline(terms, names, start, end, timeframe_list,
                         name = name_batch[ind]
 
                         df = pd.DataFrame(data[ind]['points'])
-                        df.columns = ['timestamp', location]
+                        df = df.rename(columns={'date': 'timestamp', 'value': location})
 
                         if timeframe == 'year':
                             df['timestamp'] = pd.to_datetime(pd.Series(df['timestamp']), format = '%Y')
@@ -309,23 +299,22 @@ def theo_timeline(terms, names, start, end, timeframe_list,
                 print("[{}] {}_{}.csv created!".format(datetime.now().strftime("%H:%M:%S"), term_in_batch, timeframe))
 
 
+    def main():
 
-def main():
-
-    theo_timeline(
-        terms = ['cats', 'cats + food'],
-        names = ['cats', 'food'],
-        start = '2019-01-01',
-        end = '2020-01-01',
-        timeframe_list = ['year'],
-        geo_country_list = ['US'],
-        worldwide = False,
-        timestep_years = 1,
-        batch_size = 2,
-        us_states = True,
-        outpath = "C:/Users/tcapu/Google Drive/PublicHealthStudies/cats",
-        creds = "C:/Users/tcapu/Google Drive/modules/gtrends/info.py"
-    )
+        theo_timeline(
+            terms = ['cats', 'cats + food'],
+            names = ['cats', 'food'],
+            start = '2019-01-01',
+            end = '2020-01-01',
+            timeframe_list = ['year'],
+            geo_country_list = ['US'],
+            worldwide = False,
+            timestep_years = 1,
+            batch_size = 2,
+            us_states = True,
+            outpath = "C:/Users/tcapu/Google Drive/PublicHealthStudies/cats",
+            creds = "C:/Users/tcapu/Google Drive/modules/gtrendspy/info_theo.py"
+        )
 
 if __name__ == "main":
     main()
